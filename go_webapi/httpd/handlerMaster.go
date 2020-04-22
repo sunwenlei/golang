@@ -2,7 +2,12 @@ package httpd
 
 import (
 	"database/sql"
+	"fmt"
+	"io"
 	"net/http"
+	"os"
+	"path/filepath"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sunwenlei/golang/go_webapi/lib"
@@ -89,4 +94,44 @@ func Deleteuser(c *gin.Context) {
 	} else {
 		c.Status(http.StatusInternalServerError)
 	}
+}
+
+//Updload get a upload file
+func Updload(c *gin.Context) {
+	// Source
+	file, err := c.FormFile("file")
+	if err != nil {
+		c.String(http.StatusBadRequest, fmt.Sprintf("get form err: %s", err.Error()))
+		return
+	}
+
+	filename := filepath.Base(file.Filename)
+	filename = "./tmp/up" + time.Now().Format("20200101231010") + "_" + filename
+	if err := c.SaveUploadedFile(file, filename); err != nil {
+		c.String(http.StatusBadRequest, fmt.Sprintf("upload file err: %s", err.Error()))
+		return
+	}
+
+	c.String(http.StatusOK, fmt.Sprintf("File %s uploaded successfully.", file.Filename))
+}
+
+//GetusersCSV download csv of all persons
+func GetusersCSV(c *gin.Context) {
+	users := lib.GetPersons()
+	var filename string
+	filename = "pesrson" + time.Now().Format("20200101231010") + ".csv"
+	lib.CreateCSV(filename, *users)
+
+	header := c.Writer.Header()
+	header["Content-type"] = []string{"text/csv"}
+	header["Content-Disposition"] = []string{"attachment; filename= " + filename}
+
+	file, err := os.Open("./tmp/" + filename)
+	if err != nil {
+		c.String(http.StatusOK, "%v", err)
+		return
+	}
+	defer file.Close()
+
+	io.Copy(c.Writer, file)
 }

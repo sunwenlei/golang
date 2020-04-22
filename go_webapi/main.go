@@ -21,6 +21,8 @@ func main() {
 		api.POST("/user", httpd.Createuser)
 		api.PUT("/user/:personcd", httpd.Updateuser)
 		api.DELETE("/user/:personcd", httpd.Deleteuser)
+		api.POST("/upload", httpd.Updload)
+		api.POST("/userdownload", httpd.GetusersCSV)
 
 	}
 	r.Run(":8080") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")

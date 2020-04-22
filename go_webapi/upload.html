@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>file upload template</title>
+</head>
+<body>
+<h1>Upload single file </h1>
+
+<form action="http://localhost:8080/api/upload" method="post" enctype="multipart/form-data">
+    select a file: <input type="file" name="file"><br><br>
+    <input type="submit" value="Do upload">
+</form>
+
+<br>
+<hr>
+<br>
+<h1>Download file</h1>
+<form action="http://localhost:8080/api/userdownload" method="post" >
+    <input type="submit" value="Do download">
+</form>
+</body>
