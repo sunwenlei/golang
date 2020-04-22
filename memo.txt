@@ -1,0 +1,2 @@
+webapi service      "github.com/gin-gonic/gin"
+PostgreSQL          "github.com/lib/pq"
