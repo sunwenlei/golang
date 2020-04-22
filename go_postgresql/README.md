@@ -45,37 +45,3 @@
          deletePerson() delete person data
 
 Done.
-
-#==VS Code setting.json for go language=======================================
-
-{
-    "go.useLanguageServer": true,
-    "go.alternateTools": {
-        "go-langserver": "gopls"
-    },
-    "go.languageServerExperimentalFeatures": {
-        "format": true,
-        "autoComplete": true,
-        "rename": true,
-        "goToDefinition": true,
-        "hover": true,
-        "signatureHelp": true,
-        "goToTypeDefinition": true,
-        "goToImplementation": true,
-        "documentSymbols": true,
-        "workspaceSymbols": true,
-        "findReferences": true,
-        "diagnostics": true
-    },
-    "[go]": {
-        "editor.snippetSuggestions": "none",
-        "editor.formatOnSave": true,
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": true
-        },
-    },
-    "gopls": {
-        "usePlaceholders": false
-    }
-}
-#=============================================================================
