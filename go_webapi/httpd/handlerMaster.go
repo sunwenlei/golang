@@ -43,8 +43,8 @@ func Getuser(c *gin.Context) {
 //Createuser create a new person with request json and return new person code
 func Createuser(c *gin.Context) {
 	var newuser lib.MstPersonInfo
-
-	c.BindJSON(&newuser)
+	c.ShouldBind(&newuser) //use ShouldBind because [WARNING] Headers were already written. Wanted to override status code 400 with 200
+	//c.BindJSON(&newuser)
 
 	newPersonCD, err := lib.CreatePerson(&newuser)
 
@@ -119,7 +119,7 @@ func Updload(c *gin.Context) {
 func GetusersCSV(c *gin.Context) {
 	users := lib.GetPersons()
 	var filename string
-	filename = "pesrson" + time.Now().Format("20200101231010") + ".csv"
+	filename = "pesrson" + time.Now().Format("20060102150405") + ".csv"
 	lib.CreateCSV(filename, *users)
 
 	header := c.Writer.Header()
